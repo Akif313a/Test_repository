@@ -6,8 +6,8 @@ class TravelingSalesman:
         self.num_cities = num_cities
         self.min_coord = min_coord
         self.max_coord = max_coord
-        self.X = np.random.uniform(min_coord, max_coord, num_cities)
-        self.Y = np.random.uniform(min_coord, max_coord, num_cities)
+        self.X = np.array([7, 19, 40, 40, 60, 77, 79, 85, 95, 100])
+        self.Y = np.array([20, 33, 30, 54, 47, 55, 81, 80, 94, 100])
         self.S = np.arange(num_cities)
         np.random.shuffle(self.S)
 
@@ -56,8 +56,8 @@ if __name__ == "__main__":
     t_min = 0.001
     k_max = 1000000
 
-    datasets = [10, 15, 20]  # Три набора данных (количество городов)
-    runs = 5  # Количество запусков для каждого набора данных
+    datasets = [10,] 
+    runs = 5  
 
     all_results = []
 
@@ -70,11 +70,4 @@ if __name__ == "__main__":
                 total_distance, iterations, optimal_order = salesman.minimize_path(t_max, t_min, k_max)
                 print(f"Iteration {i+1} - Total Distance: {total_distance:.6f}, Iterations: {iterations}, Optimal order: {optimal_order}")
                 all_results.append((dataset, total_distance, iterations, optimal_order))
-
-    # Сохранение результатов в файл
-    with open('output_results.txt', 'w') as f:
-        for result in all_results:
-            f.write(f"{result}\n")
-
-    # Пример отрисовки одного из путей
-    salesman.plot_path(all_results[0][3])
+                salesman.plot_path(optimal_order)
